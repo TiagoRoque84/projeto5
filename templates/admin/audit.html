@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Auditoria</h5>{% endblock %}
+{% block content %}
+<h3>Registros de auditoria (500 mais recentes)</h3>
+<table class="table table-striped">
+  <thead><tr><th>Quando</th><th>Usuário</th><th>Entidade</th><th>ID</th><th>Ação</th><th>Alterações</th></tr></thead>
+  <tbody>
+  {% for a in logs %}
+    <tr><td>{{ a.created_at }}</td><td>{{ a.user }}</td><td>{{ a.entity }}</td><td>{{ a.entity_id }}</td><td>{{ a.action }}</td><td><pre class="m-0 small">{{ a.changes }}</pre></td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Documentos</h5>{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Documentos</h3>
+  <div>
+    <a class="btn btn-outline-secondary" href="{{ url_for('documents.export_xlsx') }}">Exportar Excel</a>
+    <a class="btn btn-success" href="{{ url_for('documents.new') }}">Novo documento</a>
+  </div>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-md-3">
+    <select name="company_id" class="form-select">
+      <option value="">Todas as empresas</option>
+      {% for c in companies %}
+        <option value="{{ c.id }}" {% if company_id and company_id|int == c.id %}selected{% endif %}>{{ c.razao_social }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="tipo_id" class="form-select">
+      <option value="">Todos os tipos</option>
+      {% for t in tipos %}
+        <option value="{{ t.id }}" {% if tipo_id and tipo_id|int == t.id %}selected{% endif %}>{{ t.nome }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3"><input class="form-control" name="q" placeholder="Descrição/Número/Órgão/Responsável" value="{{ q or '' }}"></div>
+  <div class="col-md-3">
+    <select name="status" class="form-select">
+      <option value="">Todos os status</option>
+      <option value="vencido" {{ 'selected' if status=='vencido' else '' }}>Vencido</option>
+      <option value="a_vencer" {{ 'selected' if status=='a_vencer' else '' }}>A vencer (<=30d)</option>
+      <option value="vigente" {{ 'selected' if status=='vigente' else '' }}>Vigente</option>
+    </select>
+  </div>
+  <div class="col-md-3"><input type="date" class="form-control" name="venc_de" value="{{ venc_de or '' }}" placeholder="Venc. de"></div>
+  <div class="col-md-3"><input type="date" class="form-control" name="venc_ate" value="{{ venc_ate or '' }}" placeholder="Venc. até"></div>
+  <div class="col-md-2"><button class="btn btn-outline-secondary w-100">Filtrar</button></div>
+</form>
+<table class="table table-striped">
+  <thead><tr><th>Empresa</th><th>Tipo</th><th>Descrição</th><th>Número</th><th>Expedição</th><th>Vencimento</th><th>Dias</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for d in docs %}
+    <tr>
+      <td>{{ d.company.razao_social }}</td>
+      <td>{{ d.tipo.nome }}</td>
+      <td>{{ d.descricao }}</td>
+      <td>{{ d.numero }}</td>
+      <td>{{ d.data_expedicao }}</td>
+      <td>{{ d.data_vencimento }}</td>
+      <td>{% if d.data_vencimento %}{{ (d.data_vencimento - today).days }}{% else %}-{% endif %}</td>
+      <td>
+        {% if d.status == 'Vencido' %}<span class="badge text-bg-danger">{{ d.status }}</span>
+        {% elif d.status == 'A vencer' %}<span class="badge text-bg-warning">{{ d.status }}</span>
+        {% else %}<span class="badge text-bg-success">{{ d.status }}</span>{% endif %}
+      </td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('documents.edit', doc_id=d.id) }}">Editar</a>
+        {% if d.arquivo_path %}<a class="btn btn-sm btn-outline-secondary" href="{{ url_for('documents.arquivo', doc_id=d.id) }}" target="_blank">Arquivo</a>{% endif %}
+        <form method="post" action="{{ url_for('documents.delete', doc_id=d.id) }}" class="d-inline" onsubmit="return confirm('Excluir?');"><button class="btn btn-sm btn-outline-danger">Excluir</button></form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

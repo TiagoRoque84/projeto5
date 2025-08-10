@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Colaboradores</h5>{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Colaboradores</h3>
+  <div>
+    <a class="btn btn-outline-secondary" href="{{ url_for('rh.employees_export') }}">Exportar Excel</a>
+    <a class="btn btn-success" href="{{ url_for('rh.employees_new') }}">Novo colaborador</a>
+  </div>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-md-3">
+    <select name="company_id" class="form-select">
+      <option value="">Todas as empresas</option>
+      {% for c in companies %}<option value="{{ c.id }}" {% if company_id and company_id|int == c.id %}selected{% endif %}>{{ c.razao_social }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="funcao_id" class="form-select">
+      <option value="">Todas as funções</option>
+      {% for f in funcoes %}<option value="{{ f.id }}" {% if funcao_id and funcao_id|int == f.id %}selected{% endif %}>{{ f.nome }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3"><input class="form-control" name="q" placeholder="Nome/CPF..." value="{{ q or '' }}"></div>
+  <div class="col-md-3">
+    <select name="aso" class="form-select">
+      <option value="">ASO (todos)</option>
+      <option value="vencido" {{ 'selected' if status=='vencido' else '' }}>Vencido</option>
+      <option value="a_vencer_30" {{ 'selected' if status=='a_vencer_30' else '' }}>A vencer (30d)</option>
+      <option value="a_vencer_60" {{ 'selected' if status=='a_vencer_60' else '' }}>A vencer (60d)</option>
+      <option value="vigente" {{ 'selected' if status=='vigente' else '' }}>Vigente</option>
+      <option value="sem" {{ 'selected' if status=='sem' else '' }}>Sem ASO</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="cnh" class="form-select">
+      <option value="">CNH (todos)</option>
+      <option value="vencida" {{ 'selected' if cnh=='vencida' else '' }}>Vencida</option>
+      <option value="a_vencer" {{ 'selected' if cnh=='a_vencer' else '' }}>A vencer (30d)</option>
+      <option value="vigente" {{ 'selected' if cnh=='vigente' else '' }}>Vigente</option>
+      <option value="sem" {{ 'selected' if cnh=='sem' else '' }}>Sem validade</option>
+    </select>
+  </div>
+  <div class="col-md-3"><input type="date" class="form-control" name="aso_de" value="{{ aso_de or '' }}" placeholder="ASO de"></div>
+  <div class="col-md-3"><input type="date" class="form-control" name="aso_ate" value="{{ aso_ate or '' }}" placeholder="ASO até"></div>
+  <div class="col-md-2"><button class="btn btn-outline-secondary w-100">Filtrar</button></div>
+</form>
+<table class="table table-striped">
+  <thead><tr><th>Empresa</th><th>Nome</th><th>Função</th><th>ASO</th><th>Validade</th><th>Status</th><th>CNH</th><th></th></tr></thead>
+  <tbody>
+  {% for e in employees %}
+    <tr>
+      <td>{{ e.company.razao_social }}</td>
+      <td>{{ e.nome }}</td>
+      <td>{{ e.funcao.nome if e.funcao else '' }}</td>
+      <td>{{ e.aso_tipo }}</td>
+      <td>{{ e.aso_validade }}</td>
+      <td>
+        {% set s = e.aso_status %}
+        {% if s == 'ASO vencido' %}<span class="badge text-bg-danger">{{ s }}</span>
+        {% elif s == 'ASO a vencer' %}<span class="badge text-bg-warning">{{ s }}</span>
+        {% elif s == 'ASO vigente' %}<span class="badge text-bg-success">{{ s }}</span>
+        {% else %}<span class="badge text-bg-secondary">{{ s }}</span>{% endif %}
+      </td>
+      <td>
+        {% if not e.cnh_validade %}<span class="badge text-bg-secondary">—</span>
+        {% elif e.cnh_validade < today %}<span class="badge text-bg-danger">Vencida</span>
+        {% elif (e.cnh_validade - today).days <= 30 %}<span class="badge text-bg-warning">A vencer</span>
+        {% else %}<span class="badge text-bg-success">Vigente</span>{% endif %}
+      </td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('rh.employees_edit', emp_id=e.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('rh.employees_delete', emp_id=e.id) }}" class="d-inline" onsubmit="return confirm('Excluir colaborador?');">
+          <button class="btn btn-sm btn-outline-danger">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Novo usuário</h5>{% endblock %}
+{% block content %}
+<h3>Novo usuário</h3>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="row">
+    <div class="col-md-4 mb-3">{{ form.username.label }} {{ form.username(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.role.label }} {{ form.role(class_='form-select') }}</div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 mb-3">{{ form.password.label }} {{ form.password(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.confirm.label }} {{ form.confirm(class_='form-control') }}</div>
+  </div>
+  <button class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

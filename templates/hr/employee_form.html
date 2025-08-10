@@ -1,0 +1,64 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Colaboradores</h5>{% endblock %}
+{% block content %}
+<h3>{{ 'Editar' if employee else 'Novo' }} colaborador</h3>
+<form method="post" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <div class="row">
+    <div class="col-md-4 mb-3">{{ form.company_id.label }} {{ form.company_id(class_='form-select') }}</div>
+    <div class="col-md-4 mb-3">{{ form.funcao_id.label }} {{ form.funcao_id(class_='form-select') }}</div>
+    <div class="col-md-4 mb-3 d-flex align-items-end"><div class="form-check"><label class="form-check-label">{{ form.ativo(class_='form-check-input') }} {{ form.ativo.label.text }}</label></div></div>
+  </div>
+  <div class="row">
+    <div class="col-12 mb-3">{{ form.nome.label }} {{ form.nome(class_='form-control form-control-lg', placeholder='Digite o nome completo') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.data_nascimento.label }} {{ form.data_nascimento(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.genero.label }} {{ form.genero(class_='form-select') }}</div>
+    <div class="col-md-3 mb-3">{{ form.estado_civil.label }} {{ form.estado_civil(class_='form-select') }}</div>
+    <div class="col-md-3 mb-3">{{ form.data_admissao.label }} {{ form.data_admissao(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.salario.label }} {{ form.salario(class_='form-control', **{'data-mask':'money'}) }}</div>
+    <div class="col-md-3 mb-3">{{ form.jornada.label }} {{ form.jornada(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.cpf.label }} {{ form.cpf(class_='form-control', **{'data-mask':'cpf'}) }}</div>
+    <div class="col-md-3 mb-3">{{ form.rg.label }} {{ form.rg(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.cnh.label }} {{ form.cnh(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.cnh_validade.label }} {{ form.cnh_validade(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.titulo_eleitor.label }} {{ form.titulo_eleitor(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.reservista.label }} {{ form.reservista(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.pis_pasep.label }} {{ form.pis_pasep(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.ctps.label }} {{ form.ctps(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.cep.label }} {{ form.cep(class_='form-control', **{'data-cep':'1'}) }}</div>
+    <div class="col-md-3 mb-3">{{ form.logradouro.label }} {{ form.logradouro(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.numero.label }} {{ form.numero(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.complemento.label }} {{ form.complemento(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.bairro.label }} {{ form.bairro(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.cidade.label }} {{ form.cidade(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.uf.label }} {{ form.uf(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.fone.label }} {{ form.fone(class_='form-control', **{'data-mask':'phone'}) }}</div>
+    <div class="col-md-3 mb-3">{{ form.celular.label }} {{ form.celular(class_='form-control', **{'data-mask':'phone'}) }}</div>
+    <div class="col-md-3 mb-3">{{ form.email.label }} {{ form.email(class_='form-control') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.banco.label }} {{ form.banco(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.agencia.label }} {{ form.agencia(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.conta.label }} {{ form.conta(class_='form-control') }}</div>
+    <div class="col-md-3 mb-3">{{ form.tipo_conta.label }} {{ form.tipo_conta(class_='form-select') }}</div>
+
+    <div class="col-md-3 mb-3">{{ form.pix_tipo.label }} {{ form.pix_tipo(class_='form-select') }}</div>
+    <div class="col-md-9 mb-3">{{ form.pix_chave.label }} {{ form.pix_chave(class_='form-control') }}</div>
+
+    <div class="col-md-4 mb-3">{{ form.foto.label }} {{ form.foto(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.assinatura.label }} {{ form.assinatura(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.aso_arquivo.label }} {{ form.aso_arquivo(class_='form-control') }}</div>
+
+    <div class="col-md-4 mb-3">{{ form.aso_tipo.label }} {{ form.aso_tipo(class_='form-select') }}</div>
+    <div class="col-md-4 mb-3">{{ form.aso_data.label }} {{ form.aso_data(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.aso_validade.label }} {{ form.aso_validade(class_='form-control') }}</div>
+  </div>
+  <button class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

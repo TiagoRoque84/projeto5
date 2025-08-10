@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Empresas</h5>{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Empresas</h3>
+  <a class="btn btn-success" href="{{ url_for('companies.new') }}">Nova empresa</a>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-auto"><input class="form-control" name="q" placeholder="Buscar..." value="{{ q or '' }}"></div>
+  <div class="col-auto"><button class="btn btn-outline-secondary">Filtrar</button></div>
+</form>
+<table class="table table-striped">
+  <thead><tr><th>Razão Social</th><th>Fantasia</th><th>CNPJ</th><th>Cidade</th><th>UF</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for c in companies %}
+    <tr>
+      <td>{{ c.razao_social }}</td><td>{{ c.nome_fantasia }}</td><td>{{ c.cnpj }}</td><td>{{ c.cidade }}</td><td>{{ c.uf }}</td>
+      <td>{{ 'Ativa' if c.ativa else 'Inativa' }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('companies.edit', company_id=c.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('companies.delete', company_id=c.id) }}" class="d-inline" onsubmit="return confirm('Excluir?');">
+          <button class="btn btn-sm btn-outline-danger">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

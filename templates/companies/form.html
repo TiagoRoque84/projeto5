@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">Empresas</h5>{% endblock %}
+{% block content %}
+<h3>{{ 'Editar' if company else 'Nova' }} empresa</h3>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="row">
+    <div class="col-md-6 mb-3">{{ form.razao_social.label }} {{ form.razao_social(class_='form-control') }}</div>
+    <div class="col-md-6 mb-3">{{ form.nome_fantasia.label }} {{ form.nome_fantasia(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.cnpj.label }} {{ form.cnpj(class_='form-control', **{'data-mask':'cnpj','data-cnpj':'1'}) }}</div>
+    <div class="col-md-4 mb-3">{{ form.inscricao_estadual.label }} {{ form.inscricao_estadual(class_='form-control') }}</div>
+    <div class="col-md-4 mb-3">{{ form.ativa(class_='form-check-input') }} {{ form.ativa.label(class_='form-check-label') }}</div>
+    <div class="col-md-3 mb-3">{{ form.cep.label }} {{ form.cep(class_='form-control', **{'data-cep':'1'}) }}</div>
+    <div class="col-md-5 mb-3">{{ form.logradouro.label }} {{ form.logradouro(class_='form-control') }}</div>
+    <div class="col-md-2 mb-3">{{ form.numero.label }} {{ form.numero(class_='form-control') }}</div>
+    <div class="col-md-2 mb-3">{{ form.complemento.label }} {{ form.complemento(class_='form-control') }}</div>
+    <div class="col-md-5 mb-3">{{ form.bairro.label }} {{ form.bairro(class_='form-control') }}</div>
+    <div class="col-md-5 mb-3">{{ form.cidade.label }} {{ form.cidade(class_='form-control') }}</div>
+    <div class="col-md-2 mb-3">{{ form.uf.label }} {{ form.uf(class_='form-control') }}</div>
+    <div class="col-md-6 mb-3">{{ form.alert_email.label }} {{ form.alert_email(class_='form-control') }}</div>
+    <div class="col-md-6 mb-3">{{ form.alert_whatsapp.label }} {{ form.alert_whatsapp(class_='form-control') }}</div>
+  </div>
+  <button class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

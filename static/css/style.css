@@ -1,0 +1,15 @@
+
+:root{--navy:#2B3E73;--navy-700:#22345F;--green:#2DAA3E;--green-700:#228634;--bg:#f5f7fb;--text:#1f2330;--muted:#6c778c;}
+body{background-color:var(--bg);color:var(--text)}.app-shell{display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--navy);color:#fff;position:sticky;top:0;height:100vh;box-shadow:0 0 0 1px rgba(255,255,255,.05) inset}
+.brand-logo{width:180px;max-height:56px;height:auto;object-fit:contain}.brand-title{font-weight:700;letter-spacing:.5px;line-height:1}.brand-sub{font-size:.75rem;opacity:.85}
+.sidebar .nav-link{color:#dfe7ff;border-radius:8px;padding:.55rem .75rem;display:flex;gap:.5rem;align-items:center;font-weight:500;transition:background .15s ease,transform .05s ease}
+.sidebar .nav-link i{font-size:1.05rem;opacity:.9}.sidebar .nav-link:hover{background:rgba(255,255,255,.09);color:#fff}.sidebar .nav-link.active{background:linear-gradient(90deg,var(--green),var(--green-700));color:#fff}
+.nav-section{color:#a8b7e1;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin:.75rem .5rem .25rem}
+.content{flex:1;display:flex;flex-direction:column}.topbar{height:58px;background:#fff;border-bottom:1px solid #e6ebf5}.page{max-width:1300px;margin:0 auto}
+.kpi .kpi-title{font-size:.85rem;color:var(--muted)}.kpi .kpi-value{font-size:2.25rem;font-weight:800;letter-spacing:.5px}.kpi-danger{border-left:6px solid #dc3545}.kpi-warning{border-left:6px solid #ffc107}
+.login-bg{background:radial-gradient(80% 120% at 0% 0%, rgba(45,170,62,.18), transparent), linear-gradient(135deg, #f7f9ff, #eef3ff)}.login-logo{max-height:90px;width:auto;object-fit:contain}
+.table thead th{color:var(--muted);font-weight:600}.badge{font-weight:600}
+a:not(.btn),.link-primary,.text-primary{color:var(--green)!important}.btn-primary{background-color:var(--green);border-color:var(--green-700);color:#fff}
+.btn-primary:hover,.btn-primary:focus{background-color:var(--green-700);border-color:var(--green-700)}.form-check-input:checked{background-color:var(--green);border-color:var(--green-700)}
+.btn-success{color:#fff}

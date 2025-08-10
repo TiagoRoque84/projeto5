@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block page_title %}<h5 class="m-0">DashBoard</h5>{% endblock %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-3"><div class="card kpi kpi-danger"><div class="card-body"><div class="kpi-title">Docs Vencidos</div><div class="kpi-value">{{ docs_vencidos }}</div></div></div></div>
+  <div class="col-md-3"><div class="card kpi kpi-warning"><div class="card-body"><div class="kpi-title">Docs a Vencer (30d)</div><div class="kpi-value">{{ docs_a_vencer }}</div></div></div></div>
+  <div class="col-md-3"><div class="card kpi kpi-danger"><div class="card-body"><div class="kpi-title">ASO Vencidos</div><div class="kpi-value">{{ aso_vencidos }}</div></div></div></div>
+  <div class="col-md-3"><div class="card kpi kpi-warning"><div class="card-body"><div class="kpi-title">ASO a Vencer (30d)</div><div class="kpi-value">{{ aso_a_vencer }}</div></div></div></div>
+</div>
+<div class="row g-4 mt-1">
+  <div class="col-md-4"><div class="card kpi"><div class="card-body"><div class="kpi-title">Funcionários</div><div class="kpi-value">{{ num_func }}</div></div></div></div>
+  <div class="col-md-4"><div class="card kpi"><div class="card-body"><div class="kpi-title">Ativos</div><div class="kpi-value">{{ num_func_ativos }}</div></div></div></div>
+  <div class="col-md-4"><div class="card kpi"><div class="card-body"><div class="kpi-title">Inativos</div><div class="kpi-value">{{ num_func_inativos }}</div></div></div></div>
+</div>
+{% endblock %}
