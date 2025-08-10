@@ -1,0 +1,28 @@
+# Python / Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtualenv
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# DB/Flask
+instance/
+app.db
+*.sqlite
+*.sqlite3
+migrations/__pycache__/
+
+# Uploads e zips
+uploads/
+*.zip
+
+# Config local
+.env
+.env.*
