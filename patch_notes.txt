@@ -1,0 +1,20 @@
+
+PASSO A PASSO PARA ATIVAR O UPLOAD DE LOGO
+
+1) Sobrescreva o arquivo:
+   blueprints/admin/routes.py
+   pelo que está neste patch.
+
+2) Coloque o arquivo novo:
+   templates/admin/settings.html
+
+3) Adicione o link no menu Admin (templates/base.html):
+   Dentro do bloco Admin, acrescente a linha abaixo onde preferir:
+     <a href="{{ url_for('admin.settings') }}" class="nav-link {% if request.endpoint=='admin.settings' %}active{% endif %}"><i class="bi bi-gear"></i> Configurações</a>
+
+4) Reinicie o Flask e acesse:
+   /admin/config
+
+Observações:
+- O formulário aceita PNG/JPG/JPEG até o limite configurado (20MB).
+- As imagens são copiadas para static/img/logo.png e static/img/logo-login.png
